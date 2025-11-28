@@ -1,0 +1,5 @@
+# Data ingest
+PyPDF2==3.0.1
+
+# Logging
+loguru==0.7.2
