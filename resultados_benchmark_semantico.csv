@@ -1,0 +1,4 @@
+id,query,expected_answer,generated_answer,similarity
+1,¿Cómo lograr una textura más suave en una crema?,Usar ingredientes ricos en proteínas como crema o leche para obtener suavidad.,Respuesta generada por mi modelo para: ¿Cómo lograr una textura más suave en una crema?,0.1249578243453355
+2,¿Qué pasa si cocino carne a baja temperatura?,La cocción lenta mantiene la humedad y deja la carne tierna.,Respuesta generada por mi modelo para: ¿Qué pasa si cocino carne a baja temperatura?,0.036353238747621586
+3,¿Para qué sirve tamizar la harina?,Sirve para airear la harina y eliminar grumos logrando masas esponjosas.,Respuesta generada por mi modelo para: ¿Para qué sirve tamizar la harina?,0.27517648516869636
