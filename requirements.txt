@@ -3,3 +3,11 @@ PyPDF2==3.0.1
 
 # Logging
 loguru==0.7.2
+
+
+#Vector Store
+numpy==2.3.5
+qdrant-client==1.16.1
+langchain-core==1.1.0
+langchain-community==0.4.1
+langchain-qdrant==1.1.0
