@@ -4,6 +4,7 @@ import json
 from langchain_qdrant import QdrantVectorStore, FastEmbedSparse
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import Distance, VectorParams
+from sentence_transformers import SentenceTransformer
 
 
 def vector_store_config():
@@ -12,12 +13,14 @@ def vector_store_config():
     with open(chunks_path, "r", encoding="utf-8") as file:
         chunks = json.load(file)
     docs = []
+
+    embedding_model = SentenceTransformer(
+    "mistralai/Mistral-Small-Embeddings-v0.1"
+    )
     for chunk in chunks:
-        vector = embedding_model.embed_query(chunk['text'])
         docs.append(
             {
                 "id": chunk['chunk_id'],
-                "vector": vector,
                 "payload": {
                     "text": chunk['text'],
                     "metadata": {'order':chunk['order'], 'doc_id':chunk['doc_id']}
@@ -32,15 +35,12 @@ def vector_store_config():
 
     client.create_collection(
     collection_name="bioactives_collection",
-    vectors_config=VectorParams(size=768, distance=Distance.COSINE),
+    vectors_config=VectorParams(size=1024, distance=Distance.COSINE),
     )
 
-    sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
     vector_store = QdrantVectorStore(
         client=client,
         collection_name="bioactives_collection",
-        embedding=embedding_model,
-        sparse_embedding=sparse_embeddings,
-        retrieval_mode=RetrievalMode.HYBRID,
+        embedding=embedding_model
     )
     vector_store.add_documents(docs)

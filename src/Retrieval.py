@@ -1,6 +1,7 @@
 from langchain_qdrant import QdrantVectorStore
 from qdrant_client import QdrantClient
 from qdrant_client.http import models
+from sentence_transformers import SentenceTransformer
 
 def retrieve(
     query: str,
@@ -9,7 +10,9 @@ def retrieve(
 ):
 
     client = QdrantClient(path="../data/tmp/langchain_qdrant")
-
+    embedding_model = SentenceTransformer(
+    "mistralai/Mistral-Small-Embeddings-v0.1"
+    )
     qdrant = QdrantVectorStore(
         client=client,
         collection_name="bioactives_collection",
@@ -23,7 +26,7 @@ def retrieve(
         filter=models.Filter(
         must=[
             models.FieldCondition(
-                key="metadata.doc_id",  # Note the "metadata." prefix!
+                key="metadata.doc_id",
                 match=models.MatchValue(
                     value=doc_id
                     ),
